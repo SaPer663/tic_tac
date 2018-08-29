@@ -1,38 +1,48 @@
 h1 {
 	color:red;
 }
+h2 {
+	text-align: center;
+}
 div {
   margin: auto;
   padding: 5px;
   border: 1px dotted white;
 }
+button {
+	width: 10%;
+	height: 10%;
+}
+.start {
+  text-align: center;
+
+}
+.wrapper {
+	height: 700px;
+}
 
 .table {
   display: table;
   padding: 0;
-  /*border-spacing: 5px;
-  background-color: black;
-  border-color: #3a87ad;*/
+  width: 50%;
+  height:50%;
+  
 }
 
 .row {
   display: table-row;
   background-color: #f2dede;
-/*	border-bottom: 5px;
-  border-color: black;*/
-	border-left-color: #0c0c0c; /* Цвет линии слева */
-	border-left-style: solid; /* Стиль линии */
-	border-left-width: 7px;
+  border-left-color: #0c0c0c; /* Цвет линии слева */
+  border-left-style: solid; /* Стиль линии */
+  border-left-width: 7px;
 }
 
-.cell2 {
-  display: table-cell;
-  background-color: #fbeed5;
-  border-color: #c09853;
-	visibility: hidden;
-}
 .cell {
   display: table-cell;
   background-color: #fbeed5;
   border-color: #c09853;
+}
+
+.whomToPlay {
+	margin: auto;
 }

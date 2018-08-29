@@ -25,5 +25,17 @@ const findArr = ( arr, elem ) => {
 		}
 	}
 };
-findArr ( arrMain, 2 ) ;
-console.log ( possibleCourse ) ;
+
+const playerX = ( i ) => {
+	
+	i = 'x';
+	
+};
+const playerO = (i) => {
+	i = 'o';
+};
+	
+playerX( gamer );
+console.log(gamer);
+playerX( artInt, gamer );
+console.log( artInt );
