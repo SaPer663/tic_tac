@@ -34,11 +34,14 @@ const playerX = ( i ) => {
 const playerO = (i) => {
 	i = 'o';
 };
-
-playerX( gamer );
-console.log(gamer);
-playerX( artInt, gamer );
-console.log( artInt );
+let gamer = ' o ';
+let artInt = ' x ';
 let gamersCourse = [];
 const arrId = [ '1', '2', '3', '4', '5', '6', '7', '8', '9' ];
-getElementById('id')
+
+const crossId = ( id, player ) => document.getElementById( id ).textContent = player;
+
+//console.log (artInt);
+//crossId( '5', artInt);
+//let text = document.getElementById('five').textContent;
+//console.log(text);
