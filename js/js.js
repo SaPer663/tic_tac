@@ -26,21 +26,25 @@ const findArr = ( arr, elem ) => {
 	}
 };
 
-const playerX = ( i ) => {
-
-	i = 'x';
-
+let gamer = '';
+let artInt = '';
+const gamerCoice = ( x, o ) => { // присвоение метки игроку
+  gamer = x;
+  artInt = o;
 };
-const playerO = (i) => {
-	i = 'o';
+const beforeStartGame = () => gamer !== '' ? startGame() : alert( ' Выбери чем играешь и нажми "Играть"! ') ; 
+const startGame = () => {
+  if ( gamer === 'o' ) {
+    return  crossId ( 'five5', artInt ) ;
+  }
 };
-let gamer = ' o ';
-let artInt = ' x ';
 let gamersCourse = [];
-const arrId = [ '1', '2', '3', '4', '5', '6', '7', '8', '9' ];
+let valueId = 0;
+const arrId = [ '0', 'one1', 'two2', 'three3', 'four4', 'five5', 'six6', 'seven7', 'eight8', 'nine9' ]; //массив id
 
-const crossId = ( id, player ) => document.getElementById( id ).textContent = player;
-
+const crossId = ( id, player ) => document.getElementById( id ).textContent = player; // функ. получает 
+                                                                                     //id и метку и заполняет соотв. клетку
+                                                                          
 //console.log (artInt);
 //crossId( '5', artInt);
 //let text = document.getElementById('five').textContent;

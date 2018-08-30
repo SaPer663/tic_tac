@@ -10,11 +10,11 @@
 	  <h1>hi!</h1>
 	  <div class="whomToPlay">
 	    <h2>Чем играешь?<h2>
-	    <button id="partyX" onclick="playerX();"> X </button>
-		<button id="partyO" onclick=""> O </button>
+	    <button id="partyX" onclick="gamerCoice('x', 'o');"> X </button>
+		<button id="partyO" onclick="gamerCoice('o', 'x');"> O </button>
 	  </div>
 	  <div class="start">
-	    <button id="startButtom" onclick=""> Играть </button>
+	    <button id="startButtom" onclick="beforeStartGame();"> Играть </button>
 	  </div>
       <div class="wrapper">
         <div class="table">
