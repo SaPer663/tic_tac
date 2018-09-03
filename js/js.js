@@ -33,7 +33,7 @@ const gamerCoice = ( x, o ) => { // присвоение метки игроку
   artInt = o;
 };
 
-const beforeStartGame = () => gamer !== '' ? startGame() : alert( ' Выбери чем играешь и нажми "Играть"! ') ; 
+const beforeStartGame = () => gamer !== '' ? startGame() : alert( ' Выбери чем играешь и нажми "Играть"! ') ;
 
 const startGame = () => {
   if ( gamer === 'o' ) {
@@ -41,13 +41,14 @@ const startGame = () => {
   }
 };
 
-//const checkOnFilling = () => 
+//const checkOnFilling = () =>
 
-const crossId = ( id, player ) => document.getElementById( id ).textContent = player; // функ. получает 
-                                                                                     //id и метку и заполняет соотв. клетку
+const crossId = ( id, player ) => document.getElementById( id ).textContent =
+ player; // функ. получает id и метку и заполняет соотв. клетку
 let gamersCourse = [];
 let valueId = 0;
-const arrId = [ '0', 'one1', 'two2', 'three3', 'four4', 'five5', 'six6', 'seven7', 'eight8', 'nine9' ]; //массив id
+const arrId = [ '0', 'one1', 'two2', 'three3', 'four4', 'five5', 'six6',
+'seven7', 'eight8', 'nine9' ]; //массив id
 //let listElemWithId = [];
 const findArrId = () => { // функ. собирает cell с id в массив
 	let arr = document.getElementsByClassName( ' cell ');
@@ -57,7 +58,7 @@ const findArrId = () => { // функ. собирает cell с id в масси
 	    listElemWithId.push( arr[ i ].id)
 	  }
 	  }
-	return listElemWithId;  
+	return listElemWithId;
 };
 let a = findArrId();
 console.log( a );
@@ -73,8 +74,8 @@ const findContentElemById = ( arr ) => {
 	}
 	return listContElemById;
 };
-let b = findContentElemById(findArrId());
-console.log(b); 
+//let b = findContentElemById(findArrId());
+//console.log(b);
 //;
-console.log( findContentElemById( findArrId ) );
+console.log( findContentElemById( findArrId() ) );
 const show = () => alert( document.getElementById('one1').textContent);
