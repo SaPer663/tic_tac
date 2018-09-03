@@ -61,7 +61,7 @@ const findArrId = () => { // функ. собирает cell с id в масси
 	return listElemWithId;
 };
 let a = findArrId();
-console.log( a );
+//console.log( a );
 //console.log( typeof(document.getElementById('one1').textContent) );
 
 const findContentElemById = ( arr ) => {
@@ -77,5 +77,15 @@ const findContentElemById = ( arr ) => {
 //let b = findContentElemById(findArrId());
 //console.log(b);
 //;
-console.log( findContentElemById( findArrId() ) );
+//console.log( findContentElemById( findArrId() ) );
 const show = () => alert( document.getElementById('one1').textContent);
+document.addEventListener("click",handler,true);
+function handler(e){
+    if(e.target.querySelector('cell')) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+};
+//handler(e);
+let a = document.querySelector('cell');
+console.log(a.id);
