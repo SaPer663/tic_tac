@@ -79,13 +79,23 @@ const findContentElemById = ( arr ) => {
 //;
 //console.log( findContentElemById( findArrId() ) );
 const show = () => alert( document.getElementById('one1').textContent);
-document.addEventListener("click",handler,true);
+/*document.addEventListener("click",handler,true);
 function handler(e){
     if(e.target.querySelector('cell')) {
       e.stopPropagation();
       e.preventDefault();
     }
-};
+};*/
 //handler(e);
-let a = document.querySelector('cell');
-console.log(a.id);
+/* document.onclick = function( e ) {
+	 alert('hi, all');
+ };*/
+ document.addEventListener("click",handler,true);
+ function handler(e){
+     if(e.target.id === 'wrapper') {
+       e.stopPropagation();
+       e.preventDefault();
+			 alert('QQQQQQ');
+     }
+		 alert('no');
+ };
