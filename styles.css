@@ -23,7 +23,7 @@ button {
 	margin: auto;
 }
 
-.table {
+#table {
   display: table;
   padding: 0;
   width: 350px;
@@ -50,4 +50,9 @@ button {
 
 .whomToPlay {
 	margin: auto;
+}
+#consLog {
+  text-align: center;
+  height: 20px;
+  width: 100px;
 }
