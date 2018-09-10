@@ -26,6 +26,8 @@ const findArr = ( arr, elem ) => {
 	}
 };
 
+let artIntCourse = [];
+let gamersCourse = [];
 let gamer = '';
 let artInt = '';
 const gamerCoice = ( x, o ) => { // присвоение метки игроку
@@ -42,10 +44,49 @@ const startGame = () => {
 };
 
 //const checkOnFilling = () =>
-
-const crossId = ( id, player ) => document.getElementById( id ).textContent =
- player; // функ. получает id и метку и заполняет соотв. клетку
-let gamersCourse = [];
+const conversion = ( id, arr ) => {
+	switch ( id ) {
+		case 'one1' :
+		arr.push( 1 );
+		break;
+		case 'two2' :
+		arr.push( 2 );
+		break;
+		case 'three3' :
+		arr.push( 3 );
+		break;
+		case 'four4' :
+		arr.push( 4 );
+		break;
+		case 'five5' :
+		arr.push( 5 );
+		break;
+		case 'six6' :
+		arr.push( 6 );
+		break;
+		case 'seven7' :
+		arr.push( 7 );
+		break;
+		case 'eight8' :
+		arr.push( 8 );
+		break;
+		case 'nine9' :
+		arr.push( 9 );
+		break;
+		default :
+		alert( 'Что то не то с функ. conversion' );
+		}
+};
+const crossId = ( id, player ) => {
+	document.getElementById( id ).textContent = player; // функ. получает id и метку и заполняет соотв. клетку
+	if ( player === gamer ) {
+	  conversion( id, gamersCourse );
+	} else if ( player === artInt ) {
+	  conversion( id, artIntCourse );
+	} else {
+	  alert( 'What is wrong crossId');
+	}
+};
 let valueId = 0;
 const arrId = [ '0', 'one1', 'two2', 'three3', 'four4', 'five5', 'six6',
 'seven7', 'eight8', 'nine9' ]; //массив id
@@ -74,6 +115,7 @@ const findContentElemById = ( arr ) => {
 	}
 	return listContElemById;
 };
+<<<<<<< HEAD
 //let b = findContentElemById(findArrId());
 //console.log(b);
 //;
@@ -99,3 +141,51 @@ function handler(e){
      }
 		 alert('no');
  };
+=======
+
+const consLog = document.getElementById( 'consLog' );  // my helper console.log
+consLog.addEventListener( 'click', consHelper );       // 
+function consHelper( e ) {                           //
+	console.log( gamersCourse );                    //
+	console.log( artIntCourse );                    //
+}
+
+
+
+const startButton = document.getElementById( 'startButton' );
+const partyO = document.getElementById( 'partyO' );
+const partyX = document.getElementById( 'partyX' );
+const table = document.getElementById( 'table');
+partyO.addEventListener( 'click', startButtonOn );
+partyX.addEventListener( 'click', startButtonOn );
+function startButtonOn( e ) {                      // вкл. обраб. кнопки Играть
+    startButton.addEventListener( 'click', fi );
+};
+
+table.addEventListener('click',handler,true);  // обработчик кликов в обл. табл.
+function handler(e){  // функ. откл. клик в ячейках табл.
+	console.log('ready');
+	e.stopPropagation();
+};
+function fi(e) { 
+	console.log( 'ФИ'); 
+	return table.removeEventListener('click',handler,true); // функ. вкл. клик в ячейках табл.
+};
+
+table.addEventListener("click", handlerCell);
+function handlerCell(e){
+	switch ( e.target.id ) {
+	  case 'one1' :
+		crossId( 'one1', gamer );
+		break;
+	  case 'two2' :
+	    crossId( 'two2', gamer );
+		break;
+	}
+};
+//const startButtom = document.getElementById( 'startButtom' );
+/*const add = document.getElementById('two2');
+add.addEventListener('click', fi);*/
+//add.removeEventListener('click', fi);
+
+>>>>>>> 0920786b407bec5e9b2a28b7f89fb9416386655a
