@@ -1,4 +1,15 @@
-//let arr = [ 1, 2, 3, 4 ] ;
+let list = [[ 1, 2, 20, 10 ],[1,2,],[1,2,3,]] ;
+const most = ( acc, b ) => { // сравнение кто меньше
+	if ( acc > b ) {
+	  acc = b ;
+	}
+	return acc;
+};	
+const giveLengths = ( array ) => array.length;
+const giveArr = ( ar ) => ar.length === magic;
+const magic = list.map(giveLengths).reduce(most); // проверка какой массив короче
+console.log(list.filter(giveArr));
+
 const delElem = ( arr, elem ) => {
 	let len = arr.length ;
 	let rezult = 0 ;
@@ -135,8 +146,8 @@ function consHelper( e ) {                           //
 	console.log( 'artInt ' + artIntCourse );        //
 }
 
-const isEqual = ( arrA, arrB ) => arrA.length === arrB.length ?  true  :  false ;
-const isNull = ( fun ) => fun ? startGame() : console.log('sheet');
+const isEqual = ( arrA, arrB ) => arrA.length === arrB.length ?  true  :  false ; //проверка на равенство
+const isNull = ( fun ) => fun ? startGame() : console.log('sheet');              // на равенство null
 
 function coiseArr( e ) {
 	isNull(isEqual( gamersCourse, artIntCourse ));
@@ -174,8 +185,5 @@ function  handlerCell(e) {
 		break;
 	}
 };
-//const startButtom = document.getElementById( 'startButtom' );
-/*const add = document.getElementById('two2');
-add.addEventListener('click', fi);*/
-//add.removeEventListener('click', fi);
+
 
