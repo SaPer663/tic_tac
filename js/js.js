@@ -4,7 +4,7 @@ const most = ( acc, b ) => { // сравнение кто меньше
 	  acc = b ;
 	}
 	return acc;
-};	
+};
 const giveLengths = ( array ) => array.length;
 const giveArr = ( ar ) => ar.length === magic;
 const magic = list.map(giveLengths).reduce(most); // проверка какой массив короче
@@ -24,10 +24,10 @@ const delElem = ( arr, elem ) => {
 const arrMain = [ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9 ], [ 1, 4, 7 ],
 	[ 2, 5, 8 ], [ 3, 6, 9 ], [1, 5, 9 ], [ 3, 5, 7 ] ] ;
 //let possibleCourse = [] ;                     // массив возможных вариантов след. хода
-const findArr = ( arr, elem ) => {            // функ. выбирает из данного          
-	let len = arr.length ; 
+const findArr = ( arr, elem ) => {            // функ. выбирает из данного
+	let len = arr.length ;
 	let possibleCourse = [] ;                 //массива массивы содерж. данный
-	for ( let i = 0 ; i < len ; i += 1 ) {    //элемент и возвр. 
+	for ( let i = 0 ; i < len ; i += 1 ) {    //элемент и возвр.
 	  let a = arr [ i ] ;                     //эти массивы без элемента
 	  for ( let j = 0 ; j < a.length ; j += 1 ) {
 			if ( a[ j ] === elem ) {
@@ -49,26 +49,11 @@ const mergArr = (...args) => { //  [[],[]], [[],[]] ==> [[],[],[],[]]
 	for ( let i = 0; i < argLen; i += 1 ) {
 		pushArr( args[ i ] );
 		}
-	return arrElem;	
+	return arrElem;
 };
 
 
-let artIntCourse = []; // массив сделан. ходов компьт. 
-let gamersCourse = []; // массив сделан. ходов игрока
-let gamer = '';
-let artInt = '';
-const gamerCoice = ( x, o ) => { // присвоение метки игроку
-  gamer = x;
-  artInt = o;
-};
 
-const beforeStartGame = () => gamer !== '' ? startGame() : alert( ' Выбери чем играешь и нажми "Играть"! ') ;
-
-const startGame = () => {
-  if ( gamer === 'o' ) {
-    return  crossId ( 'five5', artInt ) ;
-  }
-};
 
 //const checkOnFilling = () =>
 const conversion = ( id, arr ) => {
@@ -138,54 +123,53 @@ const findContentElemById = ( arr ) => {
 	}
 	return listContElemById;
 };
-<<<<<<< HEAD
-//let b = findContentElemById(findArrId());
-//console.log(b);
-//;
-//console.log( findContentElemById( findArrId() ) );
-const show = () => alert( document.getElementById('one1').textContent);
-/*document.addEventListener("click",handler,true);
-function handler(e){
-    if(e.target.querySelector('cell')) {
-      e.stopPropagation();
-      e.preventDefault();
-    }
-};*/
-//handler(e);
-/* document.onclick = function( e ) {
-	 alert('hi, all');
- };*/
- document.addEventListener("click",handler,true);
- function handler(e){
-     if(e.target.id === 'wrapper') {
-       e.stopPropagation();
-       e.preventDefault();
-			 alert('QQQQQQ');
-     }
-		 alert('no');
- };
-=======
+
+
 
 const consLog = document.getElementById( 'consLog' );  // my helper console.log
-consLog.addEventListener( 'click', consHelper );       // 
+consLog.addEventListener( 'click', consHelper );       //
 function consHelper( e ) {                           //
 	console.log( 'gamer ' + gamersCourse );          //
 	console.log( 'artInt ' + artIntCourse );        //
 }
 
-const isEqual = ( arrA, arrB ) => arrA.length === arrB.length ?  true  :  false ; //проверка на равенство
-const isNull = ( fun ) => fun ? startGame() : console.log('sheet');              // на равенство null
+//                        ДО НАЧАЛА ИГРЫ
 
-function coiseArr( e ) {
-	isNull(isEqual( gamersCourse, artIntCourse ));
-}
-const h1 = document.getElementById( 'h1' );
-h1.addEventListener( 'click', coiseArr );
-
+let artIntCourse = []; // массив сделан. ходов компьт.
+let gamersCourse = []; // массив сделан. ходов игрока
+let gamer = '';
+let artInt = '';
 const startButton = document.getElementById( 'startButton' );
 const partyO = document.getElementById( 'partyO' );
 const partyX = document.getElementById( 'partyX' );
 const table = document.getElementById( 'table');
+const gamerCoice = ( x, o ) => { // присвоение метки игроку
+  gamer = x;
+  artInt = o;
+};
+
+const beforeStartGame = () => gamer !== '' ? startGame() : alert( ' Выбери чем играешь и нажми "Играть"! ') ;
+
+const startGame = () => {
+  if ( gamer === 'o' ) {
+    return  crossId ( 'five5', artInt ) ;
+  }
+	console.log( ' Ваш ход' );
+};
+
+        //           НАЧАЛО ИГРЫ, ПЕРВЫЙ ХОД
+
+
+const isEqual = ( arrA, arrB ) => arrA.length === arrB.length ?  true  :  false ; //проверка на равенство
+const isNull = ( fun ) => fun ? startGame() : console.log('Ваш ход');              // на равенство null
+
+function coiseArr( e ) {
+	isNull(isEqual( gamersCourse, artIntCourse ));
+}
+//const h1 = document.getElementById( 'startButton' );
+startButton.addEventListener( 'click', coiseArr );
+
+
 partyO.addEventListener( 'click', startButtonOn );
 partyX.addEventListener( 'click', startButtonOn );
 function  startButtonOn( e ) {
@@ -196,8 +180,8 @@ function handler(e){  // функ. откл. клик в ячейках табл
 	console.log('ready');
 	e.stopPropagation();
 };
-function fi(e) { 
-	console.log( 'ФИ'); 
+function fi(e) {
+	console.log( 'ФИ');
 	return table.removeEventListener('click',handler,true); // функ. вкл. клик в ячейках табл.
 };
 
@@ -212,6 +196,3 @@ function  handlerCell(e) {
 		break;
 	}
 };
-
-
->>>>>>> 0920786b407bec5e9b2a28b7f89fb9416386655a
