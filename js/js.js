@@ -148,7 +148,7 @@ const gamerCoice = ( x, o ) => { // присвоение метки игроку
   artInt = o;
 };
 
-const beforeStartGame = () => gamer !== '' ? startGame() : alert( ' Выбери чем играешь и нажми "Играть"! ') ;
+//const beforeStartGame = () => gamer !== '' ? startGame() : alert( ' Выбери чем играешь и нажми "Играть"! ') ;
 
 const startGame = () => {
   if ( gamer === 'o' ) {
@@ -161,19 +161,30 @@ const startGame = () => {
 
 
 const isEqual = ( arrA, arrB ) => arrA.length === arrB.length ?  true  :  false ; //проверка на равенство
-const isNull = ( fun ) => fun ? startGame() : console.log('Ваш ход');              // на равенство null
+const isNull = ( fun ) => fun ? startGame() : console.log('!isNull');              // на равенство null
 
 function coiseArr( e ) {
 	isNull(isEqual( gamersCourse, artIntCourse ));
 }
 //const h1 = document.getElementById( 'startButton' );
-startButton.addEventListener( 'click', coiseArr );
+//startButton.addEventListener( 'click', coiseArr );
 
 
-partyO.addEventListener( 'click', startButtonOn );
-partyX.addEventListener( 'click', startButtonOn );
-function  startButtonOn( e ) {
+partyO.addEventListener( 'click', startButtonOnO );
+partyX.addEventListener( 'click', startButtonOnX );
+function  startButtonOnO( e ) {
+	startButton.addEventListener( 'click', coiseArr );
 	startButton.addEventListener( 'click', fi );  // вкл. обраб. кнопки Играть
+	partyO.removeEventListener( 'click', startButtonOnO );
+	partyX.addEventListener( 'click', startButtonOnX );
+	console.log('off-O  on-X');
+};
+function  startButtonOnX( e ) {
+	startButton.addEventListener( 'click', coiseArr );
+	startButton.addEventListener( 'click', fi );  // вкл. обраб. кнопки Играть
+	partyX.removeEventListener( 'click', startButtonOnX );
+	partyO.addEventListener( 'click', startButtonOnO );
+	console.log('off-X  on-O');
 };
 table.addEventListener('click',handler,true);  // обработчик кликов в обл. табл.
 function handler(e){  // функ. откл. клик в ячейках табл.
@@ -182,7 +193,9 @@ function handler(e){  // функ. откл. клик в ячейках табл
 };
 function fi(e) {
 	console.log( 'ФИ');
-	return table.removeEventListener('click',handler,true); // функ. вкл. клик в ячейках табл.
+	startButton.removeEventListener( 'click', coiseArr );
+	startButton.removeEventListener( 'click', fi );
+  table.removeEventListener('click',handler,true); // функ. вкл. клик в ячейках табл.
 };
 
 table.addEventListener("click", handlerCell);
