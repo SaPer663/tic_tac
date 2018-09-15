@@ -8,7 +8,6 @@ const most = ( acc, b ) => { // сравнение кто меньше
 const giveLengths = ( array ) => array.length;
 const giveArr = ( ar ) => ar.length === magic;
 const magic = list.map(giveLengths).reduce(most); // проверка какой массив короче
-console.log(list.filter(giveArr));
 
 const delElem = ( arr, elem ) => {
 	let len = arr.length ;
@@ -93,6 +92,7 @@ const crossId = ( id, player ) => {
 	document.getElementById( id ).textContent = player; // функ. получает id и метку и заполняет соотв. клетку
 	if ( player === gamer ) {
 	  conversion( id, gamersCourse );
+	  totalArr = gamersCourse.concat( artIntCourse );
 	} else if ( player === artInt ) {
 	  conversion( id, artIntCourse );
 	} else {
@@ -130,23 +130,21 @@ const consLog = document.getElementById( 'consLog' );  // my helper console.log
 consLog.addEventListener( 'click', consHelper );       //
 function consHelper( e ) {                           //
 	console.log( 'gamer ' + gamersCourse );          //
-	console.log( 'artInt ' + artIntCourse );        //
+	console.log( 'artInt ' + artIntCourse ); 
+	console.log( 'total' + totalArr );
 }
 
 //                        ДО НАЧАЛА ИГРЫ
 
 let artIntCourse = []; // массив сделан. ходов компьт.
 let gamersCourse = []; // массив сделан. ходов игрока
+let totalArr = [];
 let gamer = '';
 let artInt = '';
 const startButton = document.getElementById( 'startButton' );
 const partyO = document.getElementById( 'partyO' );
 const partyX = document.getElementById( 'partyX' );
 const table = document.getElementById( 'table');
-const gamerCoice = ( x, o ) => { // присвоение метки игроку
-  gamer = x;
-  artInt = o;
-};
 
 //const beforeStartGame = () => gamer !== '' ? startGame() : alert( ' Выбери чем играешь и нажми "Играть"! ') ;
 
@@ -166,46 +164,77 @@ const isNull = ( fun ) => fun ? startGame() : console.log('!isNull');           
 function coiseArr( e ) {
 	isNull(isEqual( gamersCourse, artIntCourse ));
 }
-//const h1 = document.getElementById( 'startButton' );
+const h1 = document.getElementById( 'h1' );
 //startButton.addEventListener( 'click', coiseArr );
 
 
-partyO.addEventListener( 'click', startButtonOnO );
-partyX.addEventListener( 'click', startButtonOnX );
-function  startButtonOnO( e ) {
-	startButton.addEventListener( 'click', coiseArr );
-	startButton.addEventListener( 'click', fi );  // вкл. обраб. кнопки Играть
-	partyO.removeEventListener( 'click', startButtonOnO );
-	partyX.addEventListener( 'click', startButtonOnX );
-	console.log('off-O  on-X');
+partyO.addEventListener( 'click', startButtonOn ); // вкл кнопку играть
+partyO.addEventListener( 'click', gamerCoiceO ); //   присв. игроку "О"
+function gamerCoiceO(e) {
+	gamer = 'o' ; artInt = 'x';
+	console.log( 'gamer = O');
 };
-function  startButtonOnX( e ) {
-	startButton.addEventListener( 'click', coiseArr );
-	startButton.addEventListener( 'click', fi );  // вкл. обраб. кнопки Играть
-	partyX.removeEventListener( 'click', startButtonOnX );
-	partyO.addEventListener( 'click', startButtonOnO );
-	console.log('off-X  on-O');
+
+partyX.addEventListener( 'click', startButtonOn ); // вкл кнопку играть
+partyX.addEventListener( 'click', gamerCoiceX );  // присв. игроку "Х"
+
+function gamerCoiceX(e) {
+	gamer = 'x' ; artInt = 'o';
+	console.log( 'gamer = X');
 };
+
+function  startButtonOn( e ) {
+	startButton.addEventListener( 'click', coiseArr ); // up
+	startButton.addEventListener( 'click', fi );      // откл. обраб. кнопки Играть /down
+	startButton.addEventListener( 'click', removeButtonsOX ); //откл. кнопки Х О / down
+};	
+	
+function  removeButtonsOX( e ) {
+	partyO.removeEventListener( 'click', startButtonOn );
+	partyO.removeEventListener( 'click', gamerCoiceO ); // up
+	partyX.removeEventListener( 'click', startButtonOn );
+	partyX.removeEventListener( 'click', gamerCoiceX );
+	startButton.removeEventListener( 'click', removeButtonsOX );// up 
+	console.log('off-O  off-X');
+};
+
 table.addEventListener('click',handler,true);  // обработчик кликов в обл. табл.
-function handler(e){  // функ. откл. клик в ячейках табл.
+
+function handler( e ){  // функ. откл. клик в ячейках табл.
 	console.log('ready');
 	e.stopPropagation();
 };
-function fi(e) {
+
+function fi( e ) {
 	console.log( 'ФИ');
 	startButton.removeEventListener( 'click', coiseArr );
 	startButton.removeEventListener( 'click', fi );
   table.removeEventListener('click',handler,true); // функ. вкл. клик в ячейках табл.
 };
 
-table.addEventListener("click", handlerCell);
-function  handlerCell(e) {
-	switch ( e.target.id ) {
-	  case 'one1' :
-		crossId( 'one1', gamer );
-		break;
-	  case 'two2' :
-	    crossId( 'two2', gamer );
-		break;
-	}
+table.addEventListener("click", handlerCell );
+
+function handlerCell ( e ) {
+	if ( e.target.id ) {
+		crossId( e.target.id, gamer );
+		}
 };
+
+function isHere ( num ) {
+	let random = randomElem( randomElem( arrMain ));
+	return num === random;
+};
+console.log( totalArr.some( isHere ));
+function randomElem ( arr ) { // случ. элемент массива
+	let len = arr.length;
+	let max = len - 1;
+	let min = 0;
+	return arr[Math.floor(Math.random() * (max - min + 1)) + min];
+
+};
+
+const aRRay = [1,2]
+function rand ( e ) {
+	console.log( randomElem( randomElem( arrMain )));
+}
+h1.addEventListener( 'click', rand );
