@@ -9,7 +9,7 @@ const giveLengths = ( array ) => array.length;
 const giveArr = ( ar ) => ar.length === magic;
 const magic = list.map(giveLengths).reduce(most); // проверка какой массив короче
 
-const delElem = ( arr, elem ) => {
+/*const delElem = ( arr, elem ) => {
 	let len = arr.length ;
 	let rezult = 0 ;
 	for ( let i = 0 ; i < len ; i += 1) {
@@ -18,10 +18,64 @@ const delElem = ( arr, elem ) => {
 		}
 	}
 	return arr ;
-} ;
+} ;*/
+const delElem = ( arr, elem ) => {
+  function isElem( num ) {
+	return num !== elem;
+  };
+  return arr.filter( isElem );
+};
+const as = [1,2,3];
+//console.log( delElem(as,4));
+/*function fI( arrCourse, elem ) {
+	let poss = [];
+	if ( arrCourse === 0 || elem === 0 ) {
+		return;
+	}
+  //function fiAr( arr ) {
+	arrCourse.forEach( function( item ){
+	  item.forEach( function( iTem ) {
+		if ( iTem === elem ) {
+			poss.push( delElem( item, elem ))
+		}
+	  });
+	});
+	 return poss;
+//};
+};*/
 
 const arrMain = [ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9 ], [ 1, 4, 7 ],
 	[ 2, 5, 8 ], [ 3, 6, 9 ], [1, 5, 9 ], [ 3, 5, 7 ] ] ;
+	
+const coursArr = [1,5];
+//let possTotal = [];
+const toTal = ( arr ) => {
+	let possTotal = [];
+	coursArr.forEach( function( itema ) {
+	  let f = fI( arr, itema );
+	  possTotal.push( f );
+	  return possTotal;
+    } );
+    return possTotal;
+};
+//toTal( arrMain );
+console.log(toTal( arrMain));
+function fI( arrCourse, elem ) {
+    let poss = [];
+	if ( arrCourse === 0 || elem === 0 ) {
+	  return;
+	}
+	arrCourse.forEach( function( item ){
+	  item.forEach( function( iTem ) {
+		if ( iTem === elem ) {
+			poss.push( delElem( item, elem ))
+		}
+	  });
+	});
+	return poss;
+};	
+	
+	
 //let possibleCourse = [] ;                     // массив возможных вариантов след. хода
 const findArr = ( arr, elem ) => {            // функ. выбирает из данного
 	let len = arr.length ;
@@ -36,21 +90,20 @@ const findArr = ( arr, elem ) => {            // функ. выбирает из
 	}
 	return possibleCourse;
 };
+
 const mergArr = (...args) => { //  [[],[]], [[],[]] ==> [[],[],[],[]]
 	let argLen = args.length;
 	let arrElem = [];
 	const pushArr = ( arR ) => {
-		let arLen = arR.length;
-		for ( let i = 0; i < arLen; i += 1 ) {
-			arrElem.push( arR[ i ] );
-			}
+      arR.forEach(function( i ) {
+				arrElem.push( i );
+			});
 		};
-	for ( let i = 0; i < argLen; i += 1 ) {
-		pushArr( args[ i ] );
-		}
+	args.forEach( function( item ){
+		pushArr( item );
+		});
 	return arrElem;
 };
-
 
 
 
