@@ -1,4 +1,9 @@
+const arrMain = [ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9 ], [ 1, 4, 7 ],
+	[ 2, 5, 8 ], [ 3, 6, 9 ], [1, 5, 9 ], [ 3, 5, 7 ] ] ;
+	
+const coursArr = [];
 let list = [[ 1, 2, 20, 10 ],[1,2,],[1,2,3,]] ;
+
 const most = ( acc, b ) => { // сравнение кто меньше
 	if ( acc > b ) {
 	  acc = b ;
@@ -9,61 +14,42 @@ const giveLengths = ( array ) => array.length;
 const giveArr = ( ar ) => ar.length === magic;
 const magic = list.map(giveLengths).reduce(most); // проверка какой массив короче
 
-/*const delElem = ( arr, elem ) => {
-	let len = arr.length ;
-	let rezult = 0 ;
-	for ( let i = 0 ; i < len ; i += 1) {
-		if ( arr[i] === elem ) {
-		  arr.splice( i, 1 ) ;
-		}
-	}
-	return arr ;
-} ;*/
 const delElem = ( arr, elem ) => {
   function isElem( num ) {
 	return num !== elem;
   };
   return arr.filter( isElem );
 };
-const as = [1,2,3];
-//console.log( delElem(as,4));
-/*function fI( arrCourse, elem ) {
-	let poss = [];
-	if ( arrCourse === 0 || elem === 0 ) {
-		return;
-	}
-  //function fiAr( arr ) {
-	arrCourse.forEach( function( item ){
-	  item.forEach( function( iTem ) {
-		if ( iTem === elem ) {
-			poss.push( delElem( item, elem ))
-		}
-	  });
-	});
-	 return poss;
-//};
-};*/
 
-const arrMain = [ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9 ], [ 1, 4, 7 ],
-	[ 2, 5, 8 ], [ 3, 6, 9 ], [1, 5, 9 ], [ 3, 5, 7 ] ] ;
-	
-const coursArr = [1,5];
-//let possTotal = [];
-const toTal = ( arr ) => {
+const mergArr = (args) => { //  [[],[]], [[],[]] ==> [[],[],[],[]]
+	let arrElem = [];
+	const pushArr = ( arR ) => {
+      arR.forEach(function( i ) {
+				arrElem.push( i );
+			});
+		};
+	args.forEach( function( item ){
+		pushArr( item );
+		});
+	return arrElem;
+};
+
+
+const toTal = ( arr, arrEl ) => {
 	let possTotal = [];
-	coursArr.forEach( function( itema ) {
+	arrEl.forEach( function( itema ) {
 	  let f = fI( arr, itema );
 	  possTotal.push( f );
 	  return possTotal;
     } );
-    return possTotal;
+    return mergArr( possTotal );
 };
 //toTal( arrMain );
-console.log(toTal( arrMain));
-function fI( arrCourse, elem ) {
+console.log((toTal( arrMain, coursArr )));
+function fI( arrCourse, elem ) {  // выдаёт массив 
     let poss = [];
-	if ( arrCourse === 0 || elem === 0 ) {
-	  return;
+	if ( arrCourse === [] || elem === undefined ) {
+	  return [999];
 	}
 	arrCourse.forEach( function( item ){
 	  item.forEach( function( iTem ) {
@@ -74,7 +60,7 @@ function fI( arrCourse, elem ) {
 	});
 	return poss;
 };	
-	
+console.log( fI(coursArr ))	
 	
 //let possibleCourse = [] ;                     // массив возможных вариантов след. хода
 const findArr = ( arr, elem ) => {            // функ. выбирает из данного
@@ -91,21 +77,10 @@ const findArr = ( arr, elem ) => {            // функ. выбирает из
 	return possibleCourse;
 };
 
-const mergArr = (...args) => { //  [[],[]], [[],[]] ==> [[],[],[],[]]
-	let argLen = args.length;
-	let arrElem = [];
-	const pushArr = ( arR ) => {
-      arR.forEach(function( i ) {
-				arrElem.push( i );
-			});
-		};
-	args.forEach( function( item ){
-		pushArr( item );
-		});
-	return arrElem;
-};
 
 
+//console.log((toTal( arrMain)));
+//console.log(mergArr(toTal( arrMain)/*[0], toTal( arrMain ) [1]*/));
 
 //const checkOnFilling = () =>
 const conversion = ( id, arr ) => {
