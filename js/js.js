@@ -1,7 +1,7 @@
 const arrMain = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7],
   [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]];
 
-const coursArr = [];
+const coursArr = [1,5];
 const list = [[1, 2, 20, 10], [1, 2], [1, 2, 3]];
 
 const most = (acc, b) => { // сравнение кто меньше
@@ -13,6 +13,10 @@ const most = (acc, b) => { // сравнение кто меньше
 const giveLengths = array => array.length;
 const magic = list.map(giveLengths).reduce(most); // проверка какой массив короче
 const giveArr = ar => ar.length === magic;
+const isSmaller = arr => { // функ приним [[],[]] и возвр наим массив
+  const comparing = arr.map(giveLengths).reduce(most);
+  return arr.filter((i) => i.length === comparing);
+};
 
 const delElem = (arr, elem) => {
   function isElem(num) {
@@ -21,59 +25,28 @@ const delElem = (arr, elem) => {
   return arr.filter(isElem);
 };
 
-const mergArr = (args) => { //  [[],[]], [[],[]] ==> [[],[],[],[]]
-  const arrElem = [];
-  const pushArr = (arR) => {
-    arR.forEach((i) => {
-      arrElem.push(i);
-    });
-  };
-  args.forEach((item) => {
-    pushArr(item);
-  });
-  return arrElem;
+const delElemTwo = (arr, arrElem) => {
+  let result = arr;
+  arrElem.forEach((item) =>
+    result = delElem(result, item));
+  return result;
 };
 
 
-const toTal = (arr, arrEl) => {
-  const possTotal = [];
-  arrEl.forEach((itema) => {
-    const f = fI(arr, itema);
-    possTotal.push(f);
-    return possTotal;
-  });
-  return mergArr(possTotal);
-};
-/* const toTal = (arr, arrEl) => {
-  const possTotal = [];
-  arrEl.forEach(function(itema) {
-    let f = fI(arr, itema);
-    possTotal.push(f);
+const toTal = (arr, arrElem) => { // функ возвр [[],[]]  
+  const possTotal = []; // в которых нет данных элем
+  arr.forEach((itema) => {
+  let f = delElemTwo(itema, arrElem);
+    if (itema.length != f.length) {
+      possTotal.push(f);
+	}  
     return possTotal;
     } );
-    return mergArr(possTotal);
-}; */
-// toTal( arrMain );
-console.log((toTal(arrMain, coursArr)));
-function fI(arrCourse, elem) { // выдаёт массив
-  const poss = [];
-  if (arrCourse === [] || elem === undefined) {
-    return [999];
-  }
-  arrCourse.forEach((item) => {
-    item.forEach((iTem) => {
-      if (iTem === elem) {
-        poss.push(delElem(item, elem))
-      }
-    });
-  });
-  return poss;
-}
-console.log(fI(coursArr))
-// console.log((toTal( arrMain)));
-// console.log(mergArr(toTal( arrMain)/*[0], toTal( arrMain ) [1]*/));
+    return possTotal;
+}; 
 
-// const checkOnFilling = () =>
+
+
 const conversion = (id, arr) => {
   switch (id) {
     case 'one1':
@@ -108,20 +81,26 @@ const conversion = (id, arr) => {
   }
 };
 const crossId = (id, player) => {
+  //const aim = document.getElementById(id).textContent;
+  //if (document.getElementById(id).textContent  === '') {
   document.getElementById(id).textContent = player; // функ. получает id и
   if (player === gamer) { // метку и заполняет соотв. клетку
     conversion(id, gamersCourse);
-    totalArr = gamersCourse.concat(artIntCourse);
   } else if (player === artInt) {
     conversion(id, artIntCourse);
   } else {
     alert('What is wrong crossId');
   }
+  totalArr = gamersCourse.concat(artIntCourse);
+//}
+  //return;
+	//return console.log(typeof(aim));
 };
 const valueId = 0;
 const arrId = ['0', 'one1', 'two2', 'three3', 'four4', 'five5', 'six6',
 'seven7', 'eight8', 'nine9']; // массив id
 // let listElemWithId = [];
+
 const findArrId = () => { // функ. собирает cell с id в массив
   const arr = document.getElementsByClassName(' cell ');
   const listElemWithId = [];
@@ -150,6 +129,8 @@ function consHelper(e) {
   console.log(`gamer ${gamersCourse}`);
   console.log(`artInt ${artIntCourse}`);
   console.log(`total ${totalArr}`);
+  //console.log(toTal(arrMain, [1,5]));
+  console.log(isSmaller(toTal(arrMain, [1,5])));
 }
 
 //                        ДО НАЧАЛА ИГРЫ
@@ -177,8 +158,10 @@ const startGame = () => {
 
 const isEqual = (arrA, arrB) => (arrA.length === arrB.length ?
 true : false);// проверка на равенство
+
 const isNull = fun => (fun ? startGame() :
 console.log('!isNull')); // на равенство null
+
 function coiseArr(e) {
   isNull(isEqual(gamersCourse, artIntCourse));
 }
@@ -229,7 +212,7 @@ function fi(e) {
   console.log('ФИ');
   startButton.removeEventListener('click', coiseArr);
   startButton.removeEventListener('click', fi);
-  table.removeEventList('click', handler, true); // функ. вкл. клик в ячейках табл.
+  table.removeEventListener('click', handler, true); // функ. вкл. клик в ячейках табл.
 }
 
 table.addEventListener('click', handlerCell);
@@ -244,7 +227,7 @@ function isHere(num) {
   const random = randomElem(randomElem(arrMain));
   return num === random;
 }
-console.log(totalArr.some(isHere));
+// console.log(totalArr.some(isHere));
 function randomElem(arr) { // случ. элемент массива
   const len = arr.length;
   const max = len - 1;
