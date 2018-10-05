@@ -122,16 +122,29 @@ const findContentElemById = (arr) => {
   return listContElemById;
 };
 
+function merg (arr1, arr2){
+	const result = arr1.concat(arr2);
+	return result;
+}
+
 
 const consLog = document.getElementById('consLog'); // my helper console.log
 consLog.addEventListener('click', consHelper); //
+
+const w = toTal(arrMain, [5, 6]);
+  const ww = toTal(arrMain, [2, 4]);
+  const www = merg(w, ww);
+  
 function consHelper(e) {
   console.log(`gamer ${gamersCourse}`);
   console.log(`artInt ${artIntCourse}`);
   console.log(`total ${totalArr}`);
-  //console.log(toTal(arrMain, [1,5]));
-  console.log(isSmaller(toTal(arrMain, [1,5])));
+  console.log(w);
+  console.log(ww);
+  console.log(isSmaller(www));
 }
+
+
 
 //                        ДО НАЧАЛА ИГРЫ
 
@@ -237,6 +250,6 @@ function randomElem(arr) { // случ. элемент массива
 
 const aRRay = [1, 2]
 function rand(e) {
-  console.log(randomElem(randomElem(arrMain)));
+  console.log(randomElem(randomElem(www)));
 }
 h1.addEventListener('click', rand);
