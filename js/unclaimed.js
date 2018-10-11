@@ -14,15 +14,15 @@ const mergArr = (args) => { //  [[[],[]], [[],[]]] ==> [[],[],[],[]]
 const toTal = (arr, arrEl) => {
   const possTotal = [];
   if (arr === [] || arrEl === undefined) {
-    return ;
+    return;
   }
   arrEl.forEach((itema) => {
     const f = fI(arr, itema);
     possTotal.push(f);
     return possTotal;
   });
-  return mergArr(possTotal);
-}; 
+  mergArr(possTotal);
+};
 
 function fI(arrCourse, elem) { // выдаёт массив
   const poss = [];

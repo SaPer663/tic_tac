@@ -13,9 +13,9 @@ const most = (acc, b) => { // сравнение кто меньше
 const giveLengths = array => array.length;
 const magic = list.map(giveLengths).reduce(most); // проверка какой массив короче
 const giveArr = ar => ar.length === magic;
-const isSmaller = arr => { // функ приним [[],[]] и возвр наим массив
+const isSmaller = (arr) => { // функ приним [[],[]] и возвр наим массив
   const comparing = arr.map(giveLengths).reduce(most);
-  return arr.filter((i) => i.length === comparing);
+  return arr.filter(i => i.length === comparing);
 };
 
 const delElem = (arr, elem) => {
@@ -27,24 +27,22 @@ const delElem = (arr, elem) => {
 
 const delElemTwo = (arr, arrElem) => {
   let result = arr;
-  arrElem.forEach((item) =>
-    result = delElem(result, item));
+  arrElem.forEach((item) => { result = delElem(result, item); });
   return result;
 };
 
 
-const toTal = (arr, arrElem) => { // функ возвр [[],[]]  
+const toTal = (arr, arrElem) => { // функ возвр [[],[]]
   const possTotal = []; // в которых нет данных элем
   arr.forEach((itema) => {
-  let f = delElemTwo(itema, arrElem);
-    if (itema.length != f.length) {
+    const f = delElemTwo(itema, arrElem);
+    if (itema.length !== f.length) {
       possTotal.push(f);
-	}  
+    }
     return possTotal;
-    } );
-    return possTotal;
-}; 
-
+  });
+  return possTotal;
+};
 
 
 const conversion = (id, arr) => {
@@ -81,8 +79,8 @@ const conversion = (id, arr) => {
   }
 };
 const crossId = (id, player) => {
-  //const aim = document.getElementById(id).textContent;
-  //if (document.getElementById(id).textContent  === '') {
+  // const aim = document.getElementById(id).textContent;
+  // if (document.getElementById(id).textContent  === '') {
   document.getElementById(id).textContent = player; // функ. получает id и
   if (player === gamer) { // метку и заполняет соотв. клетку
     conversion(id, gamersCourse);
@@ -92,9 +90,9 @@ const crossId = (id, player) => {
     alert('What is wrong crossId');
   }
   totalArr = gamersCourse.concat(artIntCourse);
-//}
-  //return;
-	//return console.log(typeof(aim));
+// }
+  // return;
+// return console.log(typeof(aim));
 };
 const valueId = 0;
 const arrId = ['0', 'one1', 'two2', 'three3', 'four4', 'five5', 'six6',
@@ -122,9 +120,9 @@ const findContentElemById = (arr) => {
   return listContElemById;
 };
 
-function merg (arr1, arr2){
-	const result = arr1.concat(arr2);
-	return result;
+function merg(arr1, arr2) {
+  const result = arr1.concat(arr2);
+  return result;
 }
 
 
@@ -132,9 +130,9 @@ const consLog = document.getElementById('consLog'); // my helper console.log
 consLog.addEventListener('click', consHelper); //
 
 const w = toTal(arrMain, [5, 6]);
-  const ww = toTal(arrMain, [2, 4]);
-  const www = merg(w, ww);
-  
+const ww = toTal(arrMain, [2, 4]);
+const www = merg(w, ww);
+
 function consHelper(e) {
   console.log(`gamer ${gamersCourse}`);
   console.log(`artInt ${artIntCourse}`);
@@ -163,7 +161,7 @@ const startGame = () => {
   if (gamer === 'o') {
     return crossId('five5', artInt);
   }
-  console.log(' Ваш ход');
+  return console.log(' Ваш ход');
 };
 
 //                   НАЧАЛО ИГРЫ, ПЕРВЫЙ ХОД
