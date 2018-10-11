@@ -1,14 +1,28 @@
+/* global document:true alert:true */
+//                        ДО НАЧАЛА ИГРЫ
+
+const artIntCourse = []; // массив сделан. ходов компьт.
+const gamersCourse = []; // массив сделан. ходов игрока
+let totalArr = [];
+let gamer = '';
+let artInt = '';
+const startButton = document.getElementById('startButton');
+const partyO = document.getElementById('partyO');
+const partyX = document.getElementById('partyX');
+const table = document.getElementById('table');
+
 const arrMain = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7],
   [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]];
 
-const coursArr = [1,5];
+const coursArr = [1, 5];
 const list = [[1, 2, 20, 10], [1, 2], [1, 2, 3]];
 
 const most = (acc, b) => { // сравнение кто меньше
+  let a = acc;
   if (acc > b) {
-    acc = b;
+    a = b;
   }
-  return acc;
+  return a;
 };
 const giveLengths = array => array.length;
 const magic = list.map(giveLengths).reduce(most); // проверка какой массив короче
@@ -25,6 +39,17 @@ const delElem = (arr, elem) => {
   return arr.filter(isElem);
 };
 
+const delArr = (arr, elem) => {
+  const res = arr;
+  arr.forEach((i) => {
+    if (i.includes(elem)) {
+      res.splice(res.indexOf(i), 1);
+    }
+  });
+  return res;
+};
+console.log(delArr(arrMain, 5));
+
 const delElemTwo = (arr, arrElem) => {
   let result = arr;
   arrElem.forEach((item) => { result = delElem(result, item); });
@@ -40,6 +65,15 @@ const toTal = (arr, arrElem) => { // функ возвр [[],[]]
       possTotal.push(f);
     }
     return possTotal;
+  });
+  return possTotal;
+};
+
+const toTalWith = (arr, arrElem) => { // функ возвр [[],[]]
+  const possTotal = []; // в которых нет данных элем + all
+  arr.forEach((itema) => {
+    const f = delElemTwo(itema, arrElem);
+    possTotal.push(f);
   });
   return possTotal;
 };
@@ -90,44 +124,13 @@ const crossId = (id, player) => {
     alert('What is wrong crossId');
   }
   totalArr = gamersCourse.concat(artIntCourse);
-// }
-  // return;
-// return console.log(typeof(aim));
-};
-const valueId = 0;
-const arrId = ['0', 'one1', 'two2', 'three3', 'four4', 'five5', 'six6',
-'seven7', 'eight8', 'nine9']; // массив id
-// let listElemWithId = [];
-
-const findArrId = () => { // функ. собирает cell с id в массив
-  const arr = document.getElementsByClassName(' cell ');
-  const listElemWithId = [];
-  for (let i = 0; i < arr.length; i += 1) {
-    if (arr[i].id) {
-      listElemWithId.push(arr[i].id)
-    }
-  }
-  return listElemWithId;
 };
 
-
-const findContentElemById = (arr) => {
-  const listContElemById = [];
-  const len = arr.length;
-  for (let i = 0; i < len; i += 1) {
-    listContElemById.push(document.getElementById(arr[i]).textContent);
-  }
-  return listContElemById;
-};
 
 function merg(arr1, arr2) {
   const result = arr1.concat(arr2);
   return result;
 }
-
-
-const consLog = document.getElementById('consLog'); // my helper console.log
-consLog.addEventListener('click', consHelper); //
 
 const w = toTal(arrMain, [5, 6]);
 const ww = toTal(arrMain, [2, 4]);
@@ -137,24 +140,16 @@ function consHelper(e) {
   console.log(`gamer ${gamersCourse}`);
   console.log(`artInt ${artIntCourse}`);
   console.log(`total ${totalArr}`);
-  console.log(w);
+  /* console.log(w);
   console.log(ww);
-  console.log(isSmaller(www));
+  console.log(isSmaller(www)); */
+  const hoi = (toTal(arrMain, [5, 3]));
+  //  console.log(toTalWith(hoi, [6]));
+  console.log(hoi);
 }
 
-
-
-//                        ДО НАЧАЛА ИГРЫ
-
-let artIntCourse = []; // массив сделан. ходов компьт.
-let gamersCourse = []; // массив сделан. ходов игрока
-let totalArr = [];
-let gamer = '';
-let artInt = '';
-const startButton = document.getElementById('startButton');
-const partyO = document.getElementById('partyO');
-const partyX = document.getElementById('partyX');
-const table = document.getElementById('table');
+const consLog = document.getElementById('consLog'); // my helper console.log
+consLog.addEventListener('click', consHelper); //
 
 
 const startGame = () => {
@@ -167,11 +162,10 @@ const startGame = () => {
 //                   НАЧАЛО ИГРЫ, ПЕРВЫЙ ХОД
 
 
-const isEqual = (arrA, arrB) => (arrA.length === arrB.length ?
-true : false);// проверка на равенство
+const isEqual = (arrA, arrB) => (arrA.length === arrB.length);// проверка на равенство
 
-const isNull = fun => (fun ? startGame() :
-console.log('!isNull')); // на равенство null
+const isNull = fun => (fun ? startGame()
+  : console.log('!isNull')); // на равенство null
 
 function coiseArr(e) {
   isNull(isEqual(gamersCourse, artIntCourse));
@@ -179,40 +173,21 @@ function coiseArr(e) {
 const h1 = document.getElementById('h1');
 // startButton.addEventListener( 'click', coiseArr );
 
-
-partyO.addEventListener('click', startButtonOn); // вкл кнопку играть
-partyO.addEventListener('click', gamerCoiceO); //   присв. игроку "О"
-function gamerCoiceO(e) {
-  gamer = 'o';
-  artInt = 'x';
-  console.log('gamer = O');
-}
-
-partyX.addEventListener('click', startButtonOn); // вкл кнопку играть
-partyX.addEventListener('click', gamerCoiceX); // присв. игроку "Х"
-
 function gamerCoiceX(e) {
   gamer = 'x';
   artInt = 'o';
   console.log('gamer = X');
 }
 
-function startButtonOn(e) {
-  startButton.addEventListener('click', coiseArr); // up
-  startButton.addEventListener('click', fi); // откл. обраб. кнопки Играть /down
-  startButton.addEventListener('click', removeButtonsOX); // откл. кнопки Х О / down
-}
 
 function removeButtonsOX(e) {
   partyO.removeEventListener('click', startButtonOn);
-  partyO.removeEventListener('click', gamerCoiceO); // up
+  partyO.removeEventListener('click', gamerCoiceO);
   partyX.removeEventListener('click', startButtonOn);
   partyX.removeEventListener('click', gamerCoiceX);
-  startButton.removeEventListener('click', removeButtonsOX);// up
+  startButton.removeEventListener('click', removeButtonsOX);
   console.log('off-O  off-X');
 }
-
-table.addEventListener('click',handler,true); // обработчик кликов в обл. табл.
 
 function handler(e) { // функ. откл. клик в ячейках табл.
   console.log('ready');
@@ -226,7 +201,25 @@ function fi(e) {
   table.removeEventListener('click', handler, true); // функ. вкл. клик в ячейках табл.
 }
 
-table.addEventListener('click', handlerCell);
+function startButtonOn(e) {
+  startButton.addEventListener('click', coiseArr); // up
+  startButton.addEventListener('click', fi); // откл. обраб. кнопки Играть /down
+  startButton.addEventListener('click', removeButtonsOX); // откл. кнопки Х О / down
+}
+
+function gamerCoiceO(e) {
+  gamer = 'o';
+  artInt = 'x';
+  console.log('gamer = O');
+}
+
+partyO.addEventListener('click', startButtonOn); // вкл кнопку играть
+partyO.addEventListener('click', gamerCoiceO); //   присв. игроку "О"
+
+partyX.addEventListener('click', startButtonOn); // вкл кнопку играть
+partyX.addEventListener('click', gamerCoiceX); // присв. игроку "Х"
+
+table.addEventListener('click', handler, true); // обработчик кликов в обл. табл.
 
 function handlerCell(e) {
   if (e.target.id) {
@@ -234,17 +227,21 @@ function handlerCell(e) {
   }
 }
 
-function isHere(num) {
-  const random = randomElem(randomElem(arrMain));
-  return num === random;
-}
-// console.log(totalArr.some(isHere));
+table.addEventListener('click', handlerCell);
+
 function randomElem(arr) { // случ. элемент массива
   const len = arr.length;
   const max = len - 1;
   const min = 0;
   return arr[Math.floor(Math.random() * (max - min + 1)) + min];
 }
+
+function isHere(num) {
+  const random = randomElem(randomElem(arrMain));
+  return num === random;
+}
+// console.log(totalArr.some(isHere));
+
 
 const aRRay = [1, 2]
 function rand(e) {

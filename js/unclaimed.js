@@ -35,3 +35,27 @@ function fI(arrCourse, elem) { // выдаёт массив
   });
   return poss;
 }
+const valueId = 0;
+const arrId = ['0', 'one1', 'two2', 'three3', 'four4', 'five5', 'six6',
+  'seven7', 'eight8', 'nine9']; // массив id
+// let listElemWithId = [];
+
+const findArrId = () => { // функ. собирает cell с id в массив
+  const arr = document.getElementsByClassName(' cell ');
+  const listElemWithId = [];
+  for (let i = 0; i < arr.length; i += 1) {
+    if (arr[i].id) {
+      listElemWithId.push(arr[i].id);
+    }
+  }
+  return listElemWithId;
+};
+
+const findContentElemById = (arr) => {
+  const listContElemById = [];
+  const len = arr.length;
+  for (let i = 0; i < len; i += 1) {
+    listContElemById.push(document.getElementById(arr[i]).textContent);
+  }
+  return listContElemById;
+};
