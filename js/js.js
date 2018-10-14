@@ -28,6 +28,9 @@ const giveLengths = array => array.length;
 const magic = list.map(giveLengths).reduce(most); // проверка какой массив короче
 const giveArr = ar => ar.length === magic;
 const isSmaller = (arr) => { // функ приним [[],[]] и возвр наим массив
+  if (arr.length < 1) {
+    return 'very_small';
+  }
   const comparing = arr.map(giveLengths).reduce(most);
   return arr.filter(i => i.length === comparing);
 };
@@ -39,16 +42,18 @@ const delElem = (arr, elem) => {
   return arr.filter(isElem);
 };
 
-const delArr = (arr, elem) => {
-  const res = arr;
-  arr.forEach((i) => {
-    if (i.includes(elem)) {
-      res.splice(res.indexOf(i), 1);
-    }
-  });
+const delArrs = (arr, elem) => {
+  function isArr(num) {
+    return !num.includes(elem);
+  }
+  return arr.filter(isArr);
+};
+
+const delArr = (arr, arrelem) => { // функ удаляет масс. содерж. элементы
+  let res = arr;
+  arrelem.forEach((item) => { res = delArrs(res, item); });
   return res;
 };
-console.log(delArr(arrMain, 5));
 
 const delElemTwo = (arr, arrElem) => {
   let result = arr;
@@ -78,6 +83,18 @@ const toTalWith = (arr, arrElem) => { // функ возвр [[],[]]
   return possTotal;
 };
 
+function randomElem(arr) { // случ. элемент массива
+  /* if (typeof arr[0] !== 'number') {
+    return alert('Ничья');
+  } */
+  if (arr.length <= 1) {
+    return arr;
+  }
+  const len = arr.length;
+  const max = len - 1;
+  const min = 0;
+  return arr[Math.floor(Math.random() * (max - min + 1)) + min];
+}
 
 const conversion = (id, arr) => {
   switch (id) {
@@ -131,10 +148,13 @@ function merg(arr1, arr2) {
   const result = arr1.concat(arr2);
   return result;
 }
-
-const w = toTal(arrMain, [5, 6]);
-const ww = toTal(arrMain, [2, 4]);
-const www = merg(w, ww);
+const antCor = [5];
+const gamCor = [6];
+const ant = delArr(toTal(arrMain, antCor), gamCor);
+const gam = delArr(toTal(arrMain, gamCor), antCor);
+const www = merg(ant, gam);
+const small = isSmaller(www);
+const rando = randomElem(randomElem(small));
 
 function consHelper(e) {
   console.log(`gamer ${gamersCourse}`);
@@ -143,9 +163,11 @@ function consHelper(e) {
   /* console.log(w);
   console.log(ww);
   console.log(isSmaller(www)); */
-  const hoi = (toTal(arrMain, [5, 3]));
+  const hoi = (toTal(arrMain, [7, 4, 9]));
   //  console.log(toTalWith(hoi, [6]));
-  console.log(hoi);
+  const s = delArr(hoi, [5, 6]);
+  // console.log(randomElem(randomElem(s)));
+  console.log(rando);
 }
 
 const consLog = document.getElementById('consLog'); // my helper console.log
@@ -229,12 +251,6 @@ function handlerCell(e) {
 
 table.addEventListener('click', handlerCell);
 
-function randomElem(arr) { // случ. элемент массива
-  const len = arr.length;
-  const max = len - 1;
-  const min = 0;
-  return arr[Math.floor(Math.random() * (max - min + 1)) + min];
-}
 
 function isHere(num) {
   const random = randomElem(randomElem(arrMain));
