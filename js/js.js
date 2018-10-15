@@ -13,7 +13,6 @@ const table = document.getElementById('table');
 
 const arrMain = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7],
   [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]];
-
 const coursArr = [1, 5];
 const list = [[1, 2, 20, 10], [1, 2], [1, 2, 3]];
 
@@ -42,6 +41,24 @@ const delElem = (arr, elem) => {
   return arr.filter(isElem);
 };
 
+const isWin = (arrWin, arrCourses) => {
+  let res = [];
+  arrWin.forEach((item) => {
+    item.forEach((i) => {
+      if (arrCourses.includes(i)) {
+        res.push(i);
+      }
+    });
+    if (res.length === 3) {
+      alert('Win!');
+      return res;
+    }
+    res = [];
+    return res;
+  });
+  return res;
+};
+const fq = isWin(arrMain, [5, 1, 3, 7]);
 const delArrs = (arr, elem) => {
   function isArr(num) {
     return !num.includes(elem);
@@ -84,11 +101,11 @@ const toTalWith = (arr, arrElem) => { // функ возвр [[],[]]
 };
 
 function randomElem(arr) { // случ. элемент массива
-  /* if (typeof arr[0] !== 'number') {
+  if (typeof arr !== 'object') {
     return alert('Ничья');
-  } */
+  }
   if (arr.length <= 1) {
-    return arr;
+    return arr[0];
   }
   const len = arr.length;
   const max = len - 1;
@@ -143,13 +160,12 @@ const crossId = (id, player) => {
   totalArr = gamersCourse.concat(artIntCourse);
 };
 
-
 function merg(arr1, arr2) {
   const result = arr1.concat(arr2);
   return result;
 }
-const antCor = [5];
-const gamCor = [6];
+const antCor = [5, 7, 9];
+const gamCor = [6, 3, 1];
 const ant = delArr(toTal(arrMain, antCor), gamCor);
 const gam = delArr(toTal(arrMain, gamCor), antCor);
 const www = merg(ant, gam);
