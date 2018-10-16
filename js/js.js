@@ -16,6 +16,8 @@ const arrMain = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7],
 const coursArr = [1, 5];
 const list = [[1, 2, 20, 10], [1, 2], [1, 2, 3]];
 
+//                  логика игры
+
 const most = (acc, b) => { // сравнение кто меньше
   let a = acc;
   if (acc > b) {
@@ -26,6 +28,8 @@ const most = (acc, b) => { // сравнение кто меньше
 const giveLengths = array => array.length;
 const magic = list.map(giveLengths).reduce(most); // проверка какой массив короче
 const giveArr = ar => ar.length === magic;
+
+
 const isSmaller = (arr) => { // функ приним [[],[]] и возвр наим массив
   if (arr.length < 1) {
     return 'very_small';
@@ -41,24 +45,42 @@ const delElem = (arr, elem) => {
   return arr.filter(isElem);
 };
 
-const isWin = (arrWin, arrCourses) => {
+const isGood = (arrOne, arrTwo) => { // равны ли массивы
+  if (arrOne.length !== arrTwo.length) {
+    return false;
+  }
+  const res = [];
+  for (let i = 0; i < arrOne.length; i += 1) {
+    if (arrOne[i] === arrTwo[i]) {
+      res.push(1);
+    }
+  }
+  return res.length === 3;
+};
+
+const isWin = (arrContender, arrWiner) => arrWiner.some((i) => { // проверяет
+  if (isGood(i, arrContender)) { //  [].includes([])
+    return true;
+  }
+  return false;
+});
+
+const probableWiner = (arrWin, arrCourses) => { // определят содержет ли
   let res = [];
-  arrWin.forEach((item) => {
+  return arrWin.some((item) => { // массив ходов игрока массивы возм выигрышей
     item.forEach((i) => {
       if (arrCourses.includes(i)) {
         res.push(i);
       }
     });
-    if (res.length === 3) {
-      alert('Win!');
-      return res;
+    if (isWin(res, arrWin)) {
+      return true;
     }
     res = [];
-    return res;
+    return false;
   });
-  return res;
 };
-const fq = isWin(arrMain, [5, 1, 3, 7]);
+
 const delArrs = (arr, elem) => {
   function isArr(num) {
     return !num.includes(elem);
@@ -146,9 +168,48 @@ const conversion = (id, arr) => {
       alert('Что то не то с функ. conversion');
   }
 };
+
+const reconversion = (id) => {
+  let result = 0;
+  switch (id) {
+    case 1:
+      result = 'one1';
+      break;
+    case 2:
+      result = 'two2';
+      break;
+    case 3:
+      result = 'three3';
+      break;
+    case 4:
+      result = 'four4';
+      break;
+    case 5:
+      result = 'five5';
+      break;
+    case 6:
+      result = 'six6';
+      break;
+    case 7:
+      result = 'seven7';
+      break;
+    case 8:
+      result = 'eight8';
+      break;
+    case 9:
+      result = 'nine9';
+      break;
+    default:
+      alert('Что то не то с функ. conversion');
+  }
+  return result;
+};
+
 const crossId = (id, player) => {
-  // const aim = document.getElementById(id).textContent;
-  // if (document.getElementById(id).textContent  === '') {
+  if (totalArr.includes(id)) {
+    return;
+  }
+  totalArr.push(id);
   document.getElementById(id).textContent = player; // функ. получает id и
   if (player === gamer) { // метку и заполняет соотв. клетку
     conversion(id, gamersCourse);
@@ -157,20 +218,19 @@ const crossId = (id, player) => {
   } else {
     alert('What is wrong crossId');
   }
-  totalArr = gamersCourse.concat(artIntCourse);
 };
 
 function merg(arr1, arr2) {
   const result = arr1.concat(arr2);
   return result;
 }
-const antCor = [5, 7, 9];
+/* const antCor = [5, 7, 9];
 const gamCor = [6, 3, 1];
-const ant = delArr(toTal(arrMain, antCor), gamCor);
+const ant = delArr(toTal(arrMain, artIntCourse), gamersCourse);
 const gam = delArr(toTal(arrMain, gamCor), antCor);
 const www = merg(ant, gam);
 const small = isSmaller(www);
-const rando = randomElem(randomElem(small));
+const rando = randomElem(randomElem(small)); */
 
 function consHelper(e) {
   console.log(`gamer ${gamersCourse}`);
@@ -211,6 +271,8 @@ function coiseArr(e) {
 const h1 = document.getElementById('h1');
 // startButton.addEventListener( 'click', coiseArr );
 
+//                механика игры
+
 function gamerCoiceX(e) {
   gamer = 'x';
   artInt = 'o';
@@ -241,8 +303,8 @@ function fi(e) {
 
 function startButtonOn(e) {
   startButton.addEventListener('click', coiseArr); // up
-  startButton.addEventListener('click', fi); // откл. обраб. кнопки Играть /down
-  startButton.addEventListener('click', removeButtonsOX); // откл. кнопки Х О / down
+  startButton.addEventListener('click', fi); // откл. обраб. кнопки Играть
+  startButton.addEventListener('click', removeButtonsOX); // откл. кнопки Х О
 }
 
 function gamerCoiceO(e) {
@@ -259,9 +321,20 @@ partyX.addEventListener('click', gamerCoiceX); // присв. игроку "Х"
 
 table.addEventListener('click', handler, true); // обработчик кликов в обл. табл.
 
+function variation() {
+  const ant = delArr(toTal(arrMain, artIntCourse), gamersCourse);
+  const gam = delArr(toTal(arrMain, gamersCourse), artIntCourse);
+  const www = merg(ant, gam);
+  const small = isSmaller(www);
+  const rando = randomElem(randomElem(small));
+  const isId = reconversion(rando);
+  crossId(isId, artInt);
+}
+
 function handlerCell(e) {
   if (e.target.id) {
     crossId(e.target.id, gamer);
+    setTimeout(variation, 2000);
   }
 }
 
