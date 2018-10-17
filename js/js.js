@@ -3,7 +3,7 @@
 
 const artIntCourse = []; // массив сделан. ходов компьт.
 const gamersCourse = []; // массив сделан. ходов игрока
-let totalArr = [];
+const totalArr = [];
 let gamer = '';
 let artInt = '';
 const startButton = document.getElementById('startButton');
@@ -25,25 +25,10 @@ const most = (acc, b) => { // сравнение кто меньше
   }
   return a;
 };
+
 const giveLengths = array => array.length;
 const magic = list.map(giveLengths).reduce(most); // проверка какой массив короче
 const giveArr = ar => ar.length === magic;
-
-
-const isSmaller = (arr) => { // функ приним [[],[]] и возвр наим массив
-  if (arr.length < 1) {
-    return 'very_small';
-  }
-  const comparing = arr.map(giveLengths).reduce(most);
-  return arr.filter(i => i.length === comparing);
-};
-
-const delElem = (arr, elem) => {
-  function isElem(num) {
-    return num !== elem;
-  }
-  return arr.filter(isElem);
-};
 
 const isGood = (arrOne, arrTwo) => { // равны ли массивы
   if (arrOne.length !== arrTwo.length) {
@@ -57,6 +42,42 @@ const isGood = (arrOne, arrTwo) => { // равны ли массивы
   }
   return res.length === 3;
 };
+
+const isSmaller = (arr) => { // функ приним [[],[]] и возвр наим массив
+  if (arr.length < 1) {
+    return 'very_small';
+  }
+  const comparing = arr.map(giveLengths).reduce(most);
+  const res = arr.filter(i => i.length === comparing);
+  if (isGood(res, arr)) {
+    return arr;
+  }
+  return res;
+};
+
+const whoSmaller = (arrA, arrB) => {
+  const a = arrA[0].length;
+  const b = arrB[0].length;
+  if (a >= b) {
+    return arrB;
+  }
+  return arrA;
+};
+
+const correctSmall = (arrSmallA, arrSmallB) => {
+  const arrA = isSmaller(arrSmallA);
+  const arrB = isSmaller(arrSmallB);
+  const smaller = whoSmaller(arrA, arrB);
+  return smaller;
+};
+
+const delElem = (arr, elem) => {
+  function isElem(num) {
+    return num !== elem;
+  }
+  return arr.filter(isElem);
+};
+
 
 const isWin = (arrContender, arrWiner) => arrWiner.some((i) => { // проверяет
   if (isGood(i, arrContender)) { //  [].includes([])
@@ -79,6 +100,16 @@ const probableWiner = (arrWin, arrCourses) => { // определят содер
     res = [];
     return false;
   });
+};
+
+const whoWiner = (artIntArr, gamerArr) => {
+  if (probableWiner(arrMain, artIntArr)) {
+    return console.log(`${artInt} WIN!`);
+  }
+  if (probableWiner(arrMain, gamerArr)) {
+    return console.log(`${gamer} WIN!`);
+  }
+  return false;
 };
 
 const delArrs = (arr, elem) => {
@@ -124,7 +155,7 @@ const toTalWith = (arr, arrElem) => { // функ возвр [[],[]]
 
 function randomElem(arr) { // случ. элемент массива
   if (typeof arr !== 'object') {
-    return alert('Ничья');
+    return arr;
   }
   if (arr.length <= 1) {
     return arr[0];
@@ -134,6 +165,7 @@ function randomElem(arr) { // случ. элемент массива
   const min = 0;
   return arr[Math.floor(Math.random() * (max - min + 1)) + min];
 }
+
 
 const conversion = (id, arr) => {
   switch (id) {
@@ -323,18 +355,37 @@ table.addEventListener('click', handler, true); // обработчик клик
 
 function variation() {
   const ant = delArr(toTal(arrMain, artIntCourse), gamersCourse);
+  console.log(`ant${ant}`);
   const gam = delArr(toTal(arrMain, gamersCourse), artIntCourse);
+  console.log(`gam${gam}`);
   const www = merg(ant, gam);
-  const small = isSmaller(www);
-  const rando = randomElem(randomElem(small));
-  const isId = reconversion(rando);
-  crossId(isId, artInt);
+  console.log(`www${www}`);
+  const small = correctSmall(gam, ant);
+  console.log(`small${small}`);
+  if (small !== 'very_small') {
+    const rando = randomElem(randomElem(small));
+    console.log(`rando${rando}`);
+    const isId = reconversion(rando);
+    console.log(`isId${isId}`);
+    crossId(isId, artInt);
+    whoWiner(artIntCourse, gamersCourse);
+  }
+  function check() {
+    const who = whoWiner(artIntCourse, gamersCourse);
+    if (!who && small === 'very_small') {
+      return console.log('Draw!');
+    }
+    return false;
+  }
+  // console.log(whoWiner(artIntCourse, gamersCourse));
+  check();
 }
+
 
 function handlerCell(e) {
   if (e.target.id) {
     crossId(e.target.id, gamer);
-    setTimeout(variation, 2000);
+    setTimeout(variation, 1500);
   }
 }
 
