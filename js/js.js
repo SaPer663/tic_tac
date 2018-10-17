@@ -104,10 +104,10 @@ const probableWiner = (arrWin, arrCourses) => { // определят содер
 
 const whoWiner = (artIntArr, gamerArr) => {
   if (probableWiner(arrMain, artIntArr)) {
-    return console.log(`${artInt} WIN!`);
+    return `${artInt} WIN!`;
   }
   if (probableWiner(arrMain, gamerArr)) {
-    return console.log(`${gamer} WIN!`);
+    return `${gamer} WIN!`;
   }
   return false;
 };
@@ -368,7 +368,7 @@ function variation() {
     const isId = reconversion(rando);
     console.log(`isId${isId}`);
     crossId(isId, artInt);
-    whoWiner(artIntCourse, gamersCourse);
+    return console.log(whoWiner(artIntCourse, gamersCourse));
   }
   function check() {
     const who = whoWiner(artIntCourse, gamersCourse);
@@ -377,7 +377,6 @@ function variation() {
     }
     return false;
   }
-  // console.log(whoWiner(artIntCourse, gamersCourse));
   check();
 }
 
