@@ -3,18 +3,17 @@
 
 const artIntCourse = []; // массив сделан. ходов компьт.
 const gamersCourse = []; // массив сделан. ходов игрока
-const totalArr = [];
+const totalArr = [/* 'five5', 'eight8', 'one1', 'nine9', 'seven7', 'three3', 'four4' */];
 let gamer = '';
 let artInt = '';
 const startButton = document.getElementById('startButton');
 const partyO = document.getElementById('partyO');
 const partyX = document.getElementById('partyX');
 const table = document.getElementById('table');
+const resultWin = document.getElementById('result');
 
 const arrMain = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7],
   [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]];
-const coursArr = [1, 5];
-const list = [[1, 2, 20, 10], [1, 2], [1, 2, 3]];
 
 //                  логика игры
 
@@ -27,8 +26,6 @@ const most = (acc, b) => { // сравнение кто меньше
 };
 
 const giveLengths = array => array.length;
-const magic = list.map(giveLengths).reduce(most); // проверка какой массив короче
-const giveArr = ar => ar.length === magic;
 
 const isGood = (arrOne, arrTwo) => { // равны ли массивы
   if (arrOne.length !== arrTwo.length) {
@@ -67,6 +64,12 @@ const whoSmaller = (arrA, arrB) => {
 const correctSmall = (arrSmallA, arrSmallB) => {
   const arrA = isSmaller(arrSmallA);
   const arrB = isSmaller(arrSmallB);
+  if (arrA === 'very_small') {
+    return arrB;
+  }
+  if (arrB === 'very_small') {
+    return arrA;
+  }
   const smaller = whoSmaller(arrA, arrB);
   return smaller;
 };
@@ -100,16 +103,6 @@ const probableWiner = (arrWin, arrCourses) => { // определят содер
     res = [];
     return false;
   });
-};
-
-const whoWiner = (artIntArr, gamerArr) => {
-  if (probableWiner(arrMain, artIntArr)) {
-    return `${artInt} WIN!`;
-  }
-  if (probableWiner(arrMain, gamerArr)) {
-    return `${gamer} WIN!`;
-  }
-  return false;
 };
 
 const delArrs = (arr, elem) => {
@@ -275,7 +268,6 @@ function consHelper(e) {
   //  console.log(toTalWith(hoi, [6]));
   const s = delArr(hoi, [5, 6]);
   // console.log(randomElem(randomElem(s)));
-  console.log(rando);
 }
 
 const consLog = document.getElementById('consLog'); // my helper console.log
@@ -297,7 +289,7 @@ const isEqual = (arrA, arrB) => (arrA.length === arrB.length);// проверк�
 const isNull = fun => (fun ? startGame()
   : console.log('!isNull')); // на равенство null
 
-function coiseArr(e) {
+function coiseArr(e) { // hard beginning game
   isNull(isEqual(gamersCourse, artIntCourse));
 }
 const h1 = document.getElementById('h1');
@@ -353,33 +345,79 @@ partyX.addEventListener('click', gamerCoiceX); // присв. игроку "Х"
 
 table.addEventListener('click', handler, true); // обработчик кликов в обл. табл.
 
-function variation() {
+function stopGame(value) {
+  table.addEventListener('click', handler, true);
+  if (value !== 'Draw!') {
+    resultWin.textContent = `${value} WIN!`;
+    return;
+  }
+  resultWin.textContent = `${value}`;
+}
+
+const whoWiner = (artIntArr, gamerArr) => {
+  if (probableWiner(arrMain, artIntArr)) {
+    return stopGame(artInt);
+  }
+  if (probableWiner(arrMain, gamerArr)) {
+    return stopGame(gamer);
+  }
+  return false;
+};
+
+function check(value) {
+  const who = whoWiner(artIntCourse, gamersCourse);
+  if ((!who && value === 'very_small') || (!who && totalArr.length > 8)) {
+    return stopGame('Draw!');
+  }
+  return false;
+}
+
+function getSmall() {
   const ant = delArr(toTal(arrMain, artIntCourse), gamersCourse);
   console.log(`ant${ant}`);
   const gam = delArr(toTal(arrMain, gamersCourse), artIntCourse);
   console.log(`gam${gam}`);
   const www = merg(ant, gam);
   console.log(`www${www}`);
+  if ((ant.length < 1 && gam.length > 1) || (ant.length > 1 && gam.length < 1)) {
+    return www;
+  }
   const small = correctSmall(gam, ant);
   console.log(`small${small}`);
-  if (small !== 'very_small') {
-    const rando = randomElem(randomElem(small));
+  return small;
+}
+
+function isSmall(valueSmall) {
+  if (valueSmall !== 'very_small') {
+    const rando = randomElem(randomElem(valueSmall));
     console.log(`rando${rando}`);
     const isId = reconversion(rando);
     console.log(`isId${isId}`);
     crossId(isId, artInt);
     return console.log(whoWiner(artIntCourse, gamersCourse));
   }
-  function check() {
-    const who = whoWiner(artIntCourse, gamersCourse);
-    if (!who && small === 'very_small') {
-      return console.log('Draw!');
-    }
-    return false;
-  }
-  check();
+  return check(valueSmall);
 }
 
+function artIntNull() {
+  const rando = randomElem(randomElem(arrMain));
+  console.log(`rando${rando}`);
+  const isId = reconversion(rando);
+  console.log(`isId${isId}`);
+  crossId(isId, artInt);
+  return console.log(whoWiner(artIntCourse, gamersCourse));
+}
+
+function variation() {
+  if (artIntCourse.length < 1) {
+    return artIntNull();
+  }
+  const win = whoWiner(artIntCourse, gamersCourse);
+  if (win === false) {
+    return isSmall(getSmall());
+  }
+  return console.log(whoWiner(artIntCourse, gamersCourse));
+}
 
 function handlerCell(e) {
   if (e.target.id) {
@@ -397,8 +435,6 @@ function isHere(num) {
 }
 // console.log(totalArr.some(isHere));
 
-
-const aRRay = [1, 2]
 function rand(e) {
   console.log(randomElem(randomElem(www)));
 }

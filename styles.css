@@ -28,14 +28,14 @@ button {
   padding: 0;
   width: 350px;
   height:350px;
-  
+
 }
 
 .row {
   display: table-row;
   background-color: #f2dede;
- /* border-left-color: #0c0c0c; /* Цвет линии слева 
-  border-left-style: solid; /* Стиль линии 
+ /* border-left-color: #0c0c0c; /* Цвет линии слева
+  border-left-style: solid; /* Стиль линии
   border-left-width: 7px*/
 }
 
@@ -55,4 +55,9 @@ button {
   text-align: center;
   height: 20px;
   width: 100px;
+}
+#result {
+  background-color: #E995CE;
+  text-align: center;
+  font-size: 50px;
 }
