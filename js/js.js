@@ -349,9 +349,11 @@ function stopGame(value) {
   table.addEventListener('click', handler, true);
   if (value !== 'Draw!') {
     resultWin.textContent = `${value} WIN!`;
+    resultWin.style.display = 'block';
     return;
   }
   resultWin.textContent = `${value}`;
+  resultWin.style.display = 'block';
 }
 
 const whoWiner = (artIntArr, gamerArr) => {
@@ -380,7 +382,7 @@ function getSmall() {
   const www = merg(ant, gam);
   console.log(`www${www}`);
   if ((ant.length < 1 && gam.length > 1) || (ant.length > 1 && gam.length < 1)) {
-    return www;
+    return isSmaller(www);
   }
   const small = correctSmall(gam, ant);
   console.log(`small${small}`);
@@ -394,7 +396,10 @@ function isSmall(valueSmall) {
     const isId = reconversion(rando);
     console.log(`isId${isId}`);
     crossId(isId, artInt);
-    return console.log(whoWiner(artIntCourse, gamersCourse));
+    if (!whoWiner(artIntCourse, gamersCourse)) {
+      return check(valueSmall);
+    }
+    return console.log(`isSmall  ${ whoWiner(artIntCourse, gamersCourse)}`);
   }
   return check(valueSmall);
 }
@@ -405,10 +410,11 @@ function artIntNull() {
   const isId = reconversion(rando);
   console.log(`isId${isId}`);
   crossId(isId, artInt);
-  return console.log(whoWiner(artIntCourse, gamersCourse));
+  return console.log(`artIntNull  ${ whoWiner(artIntCourse, gamersCourse)}`);
 }
 
 function variation() {
+  table.removeEventListener('click', handler, true);
   if (artIntCourse.length < 1) {
     return artIntNull();
   }
@@ -422,6 +428,7 @@ function variation() {
 function handlerCell(e) {
   if (e.target.id) {
     crossId(e.target.id, gamer);
+    table.addEventListener('click', handler, true);
     setTimeout(variation, 1500);
   }
 }
