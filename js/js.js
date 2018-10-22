@@ -3,7 +3,7 @@
 
 const artIntCourse = []; // массив сделан. ходов компьт.
 const gamersCourse = []; // массив сделан. ходов игрока
-const totalArr = [/* 'five5', 'eight8', 'one1', 'nine9', 'seven7', 'three3', 'four4' */];
+const totalArr = [];
 let gamer = '';
 let artInt = '';
 const startButton = document.getElementById('startButton');
@@ -249,13 +249,6 @@ function merg(arr1, arr2) {
   const result = arr1.concat(arr2);
   return result;
 }
-/* const antCor = [5, 7, 9];
-const gamCor = [6, 3, 1];
-const ant = delArr(toTal(arrMain, artIntCourse), gamersCourse);
-const gam = delArr(toTal(arrMain, gamCor), antCor);
-const www = merg(ant, gam);
-const small = isSmaller(www);
-const rando = randomElem(randomElem(small)); */
 
 function consHelper(e) {
   console.log(`gamer ${gamersCourse}`);
@@ -297,12 +290,6 @@ const h1 = document.getElementById('h1');
 
 //                механика игры
 
-function gamerCoiceX(e) {
-  gamer = 'x';
-  artInt = 'o';
-  console.log('gamer = X');
-}
-
 
 function removeButtonsOX(e) {
   partyO.removeEventListener('click', startButtonOn);
@@ -331,11 +318,22 @@ function startButtonOn(e) {
   startButton.addEventListener('click', removeButtonsOX); // откл. кнопки Х О
 }
 
+function gamerCoiceX(e) {
+  gamer = 'x';
+  artInt = 'o';
+  partyO.style.borderBottomColor = 'buttonface';
+  partyX.style.borderBottomColor = '#7D7F87'; // '#6A81E7';
+  console.log('gamer = X');
+}
+
 function gamerCoiceO(e) {
   gamer = 'o';
   artInt = 'x';
+  partyX.style.borderBottomColor = 'buttonface';
+  partyO.style.borderBottomColor = '#7D7F87'; // '#6A81E7';
   console.log('gamer = O');
 }
+
 
 partyO.addEventListener('click', startButtonOn); // вкл кнопку играть
 partyO.addEventListener('click', gamerCoiceO); //   присв. игроку "О"
@@ -347,8 +345,9 @@ table.addEventListener('click', handler, true); // обработчик клик
 
 function stopGame(value) {
   table.addEventListener('click', handler, true);
+  const upper = value.toUpperCase();
   if (value !== 'Draw!') {
-    resultWin.textContent = `${value} WIN!`;
+    resultWin.textContent = `${upper} Win!`;
     resultWin.style.display = 'block';
     return;
   }
