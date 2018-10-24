@@ -184,8 +184,10 @@ consLog.addEventListener('click', consHelper); //
 
 
 const startGame = () => {
+  const getPossibleFirstCourse = delArr(arrMain, totalArr);
+  const getFirstCourse = randomElem(randomElem(getPossibleFirstCourse));
   if (gamer === 'o') {
-    return crossId('five5', artInt);
+    return crossId(getFirstCourse, artInt);
   }
   return console.log(' Ваш ход');
 };
@@ -284,35 +286,39 @@ function check(value) {
   if ((!who && value === 'very_small') || (!who && totalArr.length > 8)) {
     return stopGame('Draw!');
   }
+  if (who) {
+    return who;
+  }
   return false;
 }
 
+
 function getSmall() {
   const ant = delArr(toTal(arrMain, artIntCourse), gamersCourse);
-  console.log(`ant${ant}`);
+  console.log(`ant ${typeof ant} ${ant} ${ant.length}`);
   const gam = delArr(toTal(arrMain, gamersCourse), artIntCourse);
-  console.log(`gam${gam}`);
+  console.log(`gam ${gam}`);
   const www = merg(ant, gam);
-  console.log(`www${www}`);
-  if ((ant.length < 1 && gam.length > 1) || (ant.length > 1 && gam.length < 1)) {
-    return isSmaller(www);
+  console.log(`www ${www} ${www.length}`);
+  if ((ant.length < 1 && gam.length > 0) || (ant.length > 0 && gam.length < 1)) {
+    return www;
   }
-  const small = correctSmall(gam, ant);
-  console.log(`small${small}`);
-  return small;
+  return ant;
 }
 
 function isSmall(valueSmall) {
-  if (valueSmall !== 'very_small') {
+  const test = isSmaller(valueSmall);
+  console.log(`test ${test}`);
+  if ((valueSmall !== 'very_small') && (test !== 'very_small')) {
     const rando = randomElem(randomElem(valueSmall));
-    console.log(`rando${rando}`);
+    console.log(`rando ${rando}`);
     crossId(rando, artInt);
     if (!whoWiner(artIntCourse, gamersCourse)) {
-      return check(valueSmall);
+      return console.log(check(valueSmall));
     }
     return console.log(`isSmall  ${ whoWiner(artIntCourse, gamersCourse)}`);
   }
-  return check(valueSmall);
+  return console.log(check(valueSmall));
 }
 
 function artIntNull() {

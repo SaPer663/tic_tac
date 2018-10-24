@@ -11,7 +11,8 @@ const partyO = document.getElementById('partyO');
 const partyX = document.getElementById('partyX');
 const table = document.getElementById('table');
 const resultWin = document.getElementById('result');
-
+const one = document.getElementById('one1');
+const two = document.getElementById('two2');
 const arrMain = [['one1', 'two2', 'three3'], ['four4', 'five5', 'six6'],
   ['seven7', 'eight8', 'nine9'], ['one1', 'four4', 'seven7'],
   ['two2', 'five5', 'eight8'], ['three3', 'six6', 'nine9'],
@@ -106,6 +107,24 @@ const probableWiner = (arrWin, arrCourses) => { // определят содер
     return false;
   });
 };
+
+const getWinerArr = (arrWin, arrCourses) => { // определят содержет ли
+  let res = [];
+  return arrWin.some((item) => { // массив ходов игрока массивы возм выигрышей
+    item.forEach((i) => {
+      if (arrCourses.includes(i)) {
+        res.push(i);
+      }
+    });
+    if (isWin(res, arrWin)) {
+      return res;
+    }
+    res = [];
+    return false;
+  });
+};
+const getSwowWiner = ([a, b, c]) => {};
+
 
 const delArrs = (arr, elem) => {
   function isArr(num) {
@@ -295,7 +314,7 @@ function getSmall() {
   const www = merg(ant, gam);
   console.log(`www${www}`);
   if ((ant.length < 1 && gam.length > 1) || (ant.length > 1 && gam.length < 1)) {
-    return isSmaller(www);
+    return www;
   }
   const small = correctSmall(gam, ant);
   console.log(`small${small}`);
