@@ -110,10 +110,10 @@ button {
 	top: 13%;
 	left: 23%;
 	bottom: 15%;
-	}
-	#partyO {
-		border-width: 3px;
-	}
-	#partyX {
-		border-width: 3px;
-	}
+}
+#partyO {
+	border-width: 3px;
+}
+#partyX {
+	border-width: 3px;
+}

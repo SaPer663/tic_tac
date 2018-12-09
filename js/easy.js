@@ -259,6 +259,32 @@ partyX.addEventListener('click', gamerCoiceX); // присв. игроку "Х"
 
 table.addEventListener('click', handler, true); // обработчик кликов в обл. табл.
 
+// красивости игры и вывод результата
+
+const getWinerArr = (arrWin, arrCourses) => { // определят содержет ли
+  let res = [];
+  arrWin.some((item) => { // массив ходов игрока массивы возм выигрышей
+    item.forEach((i) => {
+      if (arrCourses.includes(i)) {
+        res.push(i);
+      }
+    });
+    if (isWin(res, arrWin)) {
+      // console.log(res);
+      return res;
+    }
+    res = [];
+    return false;
+  });
+  return res;
+};
+
+const getSwowWiner = (arr) => {
+  document.getElementById(arr[0]).style.backgroundColor = '#C7C7D1';
+  document.getElementById(arr[1]).style.backgroundColor = '#C7C7D1';
+  document.getElementById(arr[2]).style.backgroundColor = '#C7C7D1';
+};
+
 function stopGame(value) {
   table.addEventListener('click', handler, true);
   const upper = value.toUpperCase();
@@ -271,11 +297,15 @@ function stopGame(value) {
   resultWin.style.display = 'block';
 }
 
+// ------------------------------>
+
 const whoWiner = (artIntArr, gamerArr) => {
   if (probableWiner(arrMain, artIntArr)) {
+    getSwowWiner(getWinerArr(arrMain, artIntCourse));
     return stopGame(artInt);
   }
   if (probableWiner(arrMain, gamerArr)) {
+    getSwowWiner(getWinerArr(arrMain, gamersCourse));
     return stopGame(gamer);
   }
   return false;

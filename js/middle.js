@@ -108,24 +108,6 @@ const probableWiner = (arrWin, arrCourses) => { // определят содер
   });
 };
 
-const getWinerArr = (arrWin, arrCourses) => { // определят содержет ли
-  let res = [];
-  return arrWin.some((item) => { // массив ходов игрока массивы возм выигрышей
-    item.forEach((i) => {
-      if (arrCourses.includes(i)) {
-        res.push(i);
-      }
-    });
-    if (isWin(res, arrWin)) {
-      return res;
-    }
-    res = [];
-    return false;
-  });
-};
-const getSwowWiner = ([a, b, c]) => {};
-
-
 const delArrs = (arr, elem) => {
   function isArr(num) {
     return !num.includes(elem);
@@ -276,10 +258,37 @@ partyX.addEventListener('click', gamerCoiceX); // присв. игроку "Х"
 
 table.addEventListener('click', handler, true); // обработчик кликов в обл. табл.
 
+// красивости игры и вывод результата
+
+const getWinerArr = (arrWin, arrCourses) => { // определят содержет ли
+  let res = [];
+  arrWin.some((item) => { // массив ходов игрока массивы возм выигрышей
+    item.forEach((i) => {
+      if (arrCourses.includes(i)) {
+        res.push(i);
+      }
+    });
+    if (isWin(res, arrWin)) {
+      // console.log(res);
+      return res;
+    }
+    res = [];
+    return false;
+  });
+  return res;
+};
+
+const getSwowWiner = (arr) => {
+  document.getElementById(arr[0]).style.backgroundColor = '#C7C7D1';
+  document.getElementById(arr[1]).style.backgroundColor = '#C7C7D1';
+  document.getElementById(arr[2]).style.backgroundColor = '#C7C7D1';
+};
+
 function stopGame(value) {
   table.addEventListener('click', handler, true);
   const upper = value.toUpperCase();
   if (value !== 'Draw!') {
+  //  getSwowWiner(getWinerArr(arrMain, ['one1','three3','four4', 'two2']))
     resultWin.textContent = `${upper} Win!`;
     resultWin.style.display = 'block';
     return;
@@ -288,11 +297,15 @@ function stopGame(value) {
   resultWin.style.display = 'block';
 }
 
+// ------------------------------>
+
 const whoWiner = (artIntArr, gamerArr) => {
   if (probableWiner(arrMain, artIntArr)) {
+    getSwowWiner(getWinerArr(arrMain, artIntCourse));
     return stopGame(artInt);
   }
   if (probableWiner(arrMain, gamerArr)) {
+    getSwowWiner(getWinerArr(arrMain, gamersCourse));
     return stopGame(gamer);
   }
   return false;
